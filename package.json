@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate",
+  "name": "ep2",
   "version": "1.0.0",
-  "description": "CSS compiler for the Boilerplate system",
+  "description": "CSS compiler for the Eclipse Phase 2 system",
   "scripts": {
     "build": "gulp",
     "compile": "gulp css",

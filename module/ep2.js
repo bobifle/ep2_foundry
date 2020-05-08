@@ -1,14 +1,14 @@
 // Import Modules
-import { BoilerplateActor } from "./actor/actor.js";
-import { BoilerplateActorSheet } from "./actor/actor-sheet.js";
-import { BoilerplateItem } from "./item/item.js";
-import { BoilerplateItemSheet } from "./item/item-sheet.js";
+import { Ep2Actor } from "./actor/actor.js";
+import { Ep2ActorSheet } from "./actor/actor-sheet.js";
+import { Ep2Item } from "./item/item.js";
+import { Ep2ItemSheet } from "./item/item-sheet.js";
 
 Hooks.once('init', async function() {
 
-  game.boilerplate = {
-    BoilerplateActor,
-    BoilerplateItem
+  game.ep2 = {
+    Ep2Actor,
+    Ep2Item
   };
 
   /**
@@ -21,14 +21,14 @@ Hooks.once('init', async function() {
   };
 
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = BoilerplateActor;
-  CONFIG.Item.entityClass = BoilerplateItem;
+  CONFIG.Actor.entityClass = Ep2Actor;
+  CONFIG.Item.entityClass = Ep2Item;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("boilerplate", BoilerplateActorSheet, { makeDefault: true });
+  Actors.registerSheet("ep2", Ep2ActorSheet, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("boilerplate", BoilerplateItemSheet, { makeDefault: true });
+  Items.registerSheet("ep2", Ep2ItemSheet, { makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
   Handlebars.registerHelper('concat', function() {
