@@ -3,50 +3,53 @@
     "types": ["character", "npc"],
     "templates": {
       "base": {
-        "Damage": {
-          "value": 10,
-          "min": 0,
-          "max": 10
+        "damage": {
+          "value": 0
         },
-        "Wounds": {
-          "value": 5,
-          "min": 0,
-          "max": 5
+        "wounds": {
+          "value": 0
         }
       }
     },
     "character": {
       "templates": ["base"],
       "biography": "",
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      },
       "aptitudes": {
-        "cog": {
+        "cognition": {
+          "description": "represents your intelligence, problem-solving talent, and capacity for logical analysis.",
+          "short_name": "COG",
           "value": 10
         },
-        "int": {
+        "intuition": {
+          "description": "is your gut instinct and ability to evaluate on the fly.  It includes physical awareness, creativity, cleverness, and cunning.",
+          "short_name": "INT",
           "value": 10
         },
-        "ref": {
+        "reflexes": {
+          "description": "is your coordination, manual dexterity, nimbleness, balance, and reaction speed.",
+          "short_name": "REF",
           "value": 10
         },
-        "sav": {
+        "savvy": {
+          "description": "represents your social awareness, adaptability, empathy, and ability to influence others.",
+          "short_name": "SAV",
           "value": 10
         },
-        "som": {
+        "somatics": {
+          "description": "is how well you can exploit your morph's physical capabilities, including strength, stamina, and sustained positioning and motion.",
+          "short_name": "SOM",
           "value": 10
         },
-        "wil": {
+        "willpower": {
+          "description": "is your self-control, mental fortitude, and strength of personality.",
+          "short_name": "WIL",
           "value": 10
         }
       }
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": ["item", "feature", "spell", "morph", "gear"],
     "templates": {
       "base": {
         "description": ""
@@ -58,7 +61,37 @@
       "weight": 0
     },
     "morph": {
-      "templates": ["base"]
+      "templates": ["base"],
+      "book": "",
+      "type": "biomorph",
+      "cost": 1,
+      "wound_threshold": 7,
+      "durability": 30,
+      "death_rating": 45,
+      "pools": {
+        "insight": 0,
+        "moxie": 0,
+        "vigor": 0,
+        "flex": 0
+      },
+      "movement_rate": {
+        "walker": {
+          "base": 4,
+          "full": 20
+        },
+        "thrust":{
+          "base": 0,
+          "full": 0
+        },
+        "swim": {
+          "base": 0,
+          "full": 0
+        }
+      }
+    },
+    "gear": {
+      "templates": ["base"],
+      "gp": 1
     }
   }
 }

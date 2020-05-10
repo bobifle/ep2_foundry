@@ -21,8 +21,8 @@ export class Ep2ActorSheet extends ActorSheet {
   getData() {
     const data = super.getData();
     data.dtypes = ["String", "Number", "Boolean"];
-    for (let attr of Object.values(data.data.attributes)) {
-      attr.isCheckbox = attr.dtype === "Boolean";
+    for (let apt of Object.values(data.data.aptitudes)) {
+      apt.isCheckbox = apt.dtype === "Boolean";
     }
 
     // Prepare items.
