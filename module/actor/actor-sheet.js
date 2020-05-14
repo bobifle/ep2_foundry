@@ -45,19 +45,7 @@ export class Ep2ActorSheet extends ActorSheet {
 
     // Initialize containers.
     const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
-    };
+    const morphs = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -65,25 +53,18 @@ export class Ep2ActorSheet extends ActorSheet {
       let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
       // Append to gear.
-      if (i.type === 'item') {
+      if (i.type === 'gear') {
         gear.push(i);
       }
       // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
-        }
+      else if (i.type === 'morph') {
+        morphs.push(i);
       }
     }
 
     // Assign and return
     actorData.gear = gear;
-    actorData.features = features;
-    actorData.spells = spells;
+    actorData.morphs = morphs;
   }
 
   /* -------------------------------------------- */
