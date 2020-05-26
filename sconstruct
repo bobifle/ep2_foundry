@@ -2,8 +2,14 @@ import os
 
 env = Environment(ENV = os.environ)
 env.AppendENVPath('PATH', './scripts')
-Alias('check', env.Command('dummy', 'scripts/ep.py', 'mypy $SOURCE'))
 
+def PhonyTarget(target, action):
+        phony = Environment(ENV = os.environ,
+                            BUILDERS = { 'phony' : Builder(action = action) })
+        AlwaysBuild(phony.phony(target = target, source = 'sconstruct'))
+
+PhonyTarget('check', 'mypy scripts/*.py')
+PhonyTarget('black', 'black scripts')
 morphs_src = env.Command('morphs_src.json', '', 'python3 scripts/wget.py https://raw.github.com/Arokha/EP2-Data/master/morphs.json -d $TARGET')
 morphs = env.Command('morphs.json', morphs_src, 'python3 scripts/ep.py $SOURCE $TARGET')
 
