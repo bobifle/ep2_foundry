@@ -8,9 +8,15 @@ def PhonyTarget(target, action):
                             BUILDERS = { 'phony' : Builder(action = action) })
         AlwaysBuild(phony.phony(target = target, source = 'sconstruct'))
 
+# MYPY static type checker
 PhonyTarget('check', 'mypy scripts/*.py')
-PhonyTarget('black', 'black scripts')
-morphs_src = env.Command('morphs_src.json', '', 'python3 scripts/wget.py https://raw.github.com/Arokha/EP2-Data/master/morphs.json -d $TARGET')
-morphs = env.Command('morphs.json', morphs_src, 'python3 scripts/ep.py $SOURCE $TARGET')
 
-Default(morphs)
+# black auto code formater
+PhonyTarget('black', 'black scripts')
+
+# eclipse morphs
+for category in ['morphs', 'gear_items']:
+	cat_src = env.Command('%s_src.json'%category, '', 'python3 scripts/wget.py https://raw.github.com/Arokha/EP2-Data/master/%s.json -d $TARGET' %category)
+	Alias(category, env.Command('%s.json' % category, cat_src, 'python3 scripts/ep.py %s $SOURCE $TARGET' % category))
+
+Alias('all', ['black', 'check', 'morphs'])

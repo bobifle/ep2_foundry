@@ -10,6 +10,7 @@ log = logging.getLogger("ep")
 parser = argparse.ArgumentParser(
     description="Generate FVTT json data for the ep2 system."
 )
+parser.add_argument("type")
 parser.add_argument("src")
 parser.add_argument("dst")
 args = parser.parse_args()
@@ -60,7 +61,16 @@ def convert_morphs(data: list) -> list:
     return converted
 
 
+def convert_gear_items(data: list) -> list:
+    return data
+
+
+convert = {
+    "morphs": convert_morphs,
+    "gear_items": convert_gear_items,
+}
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     with open(args.dst, "w") as dst:
-        dst.write(pretty(convert_morphs(getData(args.src))))
+        dst.write(pretty(convert[args.type](getData(args.src))))
