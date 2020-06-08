@@ -52,7 +52,10 @@
     "types": ["item", "feature", "spell", "morph", "gear"],
     "templates": {
       "base": {
-        "description": ""
+        "description": "",
+        "reference": "",
+	    "notes": "",
+        "resource": "Eclipse Phase Second Edition"
       }
     },
     "item": {
@@ -85,6 +88,16 @@
     "gear": {
       "templates": ["base"],
       "gp": 1
+    },
+    "weapon": {
+      "templates": ["base"],
+      "gp": 1,
+      "damage": "2d10",
+      "damage_avg": "11",
+	  "name": "",
+      "subcategory": "Melee Ware",
+      "waretype": "CH",
+      "complexity": "Min"
     }
   }
 }

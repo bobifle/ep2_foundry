@@ -5,6 +5,7 @@ import functools
 import logging
 import os
 import argparse
+from typing import Generator, Sequence, Tuple
 
 log = logging.getLogger("ep")
 parser = argparse.ArgumentParser(
@@ -47,30 +48,46 @@ def getImage(what: str, serialize_in: str) -> str:
     return "systems/ep2/" + target if target else target
 
 
-def convert_morphs(data: list) -> list:
-    converted = []
-    for m in data:  # morphs
-        img = getImage(m.pop("image") or "none.png", "icons/items/morphs")
-        cm = {"name": m.pop("name"), "type": "morph", "data": m, "img": img}
+def convert(data: Sequence, type: str) -> Generator[Tuple[dict, dict], None, None]:
+    for e in data:
         # remove undesirable fields from EP2 data
-        m.pop("id")
+        e.pop("id")
+        yield {"name": e.pop("name"), "type": type, "data": e, "img": None}, e
+
+
+def convert_morphs(data: Sequence) -> Generator[dict, None, None]:
+    for e, d in convert(data, "morph"):
+        e["img"] = getImage(d.pop("image") or "none.png", "icons/items/morphs")
         # change movement_rate structure
-        mr = m.pop("movement_rate")
-        m["movement_rate"] = {mov.pop("movement_type").lower(): mov for mov in mr}
-        converted.append(cm)
-    return converted
+        mr = d.pop("movement_rate")
+        d["movement_rate"] = {mov.pop("movement_type").lower(): mov for mov in mr}
+        yield e
 
 
-def convert_gear_items(data: list) -> list:
-    return data
+def convert_gear_items(data: Sequence) -> Generator[dict, None, None]:
+    for e, d in convert(data, "gear"):
+        yield e
 
 
-convert = {
+def convert_weapon_melee(data: Sequence) -> Generator[dict, None, None]:
+    for e, d in convert(data, "weapon"):
+        raw = d.pop("complexity/gp", "").split("/")
+        if raw is None:
+            continue
+        d["complexity"], d["gp"] = (
+            raw[0],
+            raw[-1],
+        )  # sometimes "Min/R/1" drop the R until i know what it is
+        yield e
+
+
+convertions = {
     "morphs": convert_morphs,
     "gear_items": convert_gear_items,
+    "weapons_melee": convert_weapon_melee,
 }
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     with open(args.dst, "w") as dst:
-        dst.write(pretty(convert[args.type](getData(args.src))))
+        dst.write(pretty(list(convertions[args.type](getData(args.src)))))

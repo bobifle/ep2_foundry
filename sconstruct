@@ -15,8 +15,8 @@ PhonyTarget('check', 'mypy scripts/*.py')
 PhonyTarget('black', 'black scripts')
 
 # eclipse morphs
-for category in ['morphs', 'gear_items']:
+for category in ['morphs', 'gear_items', 'weapons_melee']:
 	cat_src = env.Command('%s_src.json'%category, '', 'python3 scripts/wget.py https://raw.github.com/Arokha/EP2-Data/master/%s.json -d $TARGET' %category)
-	Alias(category, env.Command('%s.json' % category, cat_src, 'python3 scripts/ep.py %s $SOURCE $TARGET' % category))
+	Alias(category, env.Command('%s.json' % category, cat_src+['scripts/ep.py'], 'python3 scripts/ep.py %s $SOURCE $TARGET' % category))
 
 Alias('all', ['black', 'check', 'morphs'])
