@@ -9,7 +9,7 @@ def PhonyTarget(target, action):
         AlwaysBuild(phony.phony(target = target, source = 'sconstruct'))
 
 # MYPY static type checker
-PhonyTarget('check', 'mypy scripts/*.py')
+PhonyTarget('check', 'mypy scripts')
 
 # black auto code formater
 PhonyTarget('black', 'black scripts')
