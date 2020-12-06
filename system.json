@@ -5,8 +5,7 @@
   "version": "0.0.1",
   "minimumCoreVersion": "0.5.5",
   "compatibleCoreVersion": "0.5.5",
-  "templateVersion": 2,
-  "author": "Asacolips",
+  "author": "Bobifle",
   "esmodules": ["module/ep2.js"],
   "styles": ["css/ep2.css"],
   "scripts": [],
@@ -20,10 +19,12 @@
   ],
   "gridDistance": 1,
   "gridUnits": "m",
+  "socket": true,
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
+  "minimumCoreVersion": "0.7.6",
+  "compatibleCoreVersion": "0.7.6",
   "url": "https://github.com/bobifle/ep2_foundry/",
   "manifest": "https://raw.githubusercontent.com/bobifle/ep2_foundry/master/system.json",
-  "download": "https://github.com/bobifle/ep2_foundry/raw/master/ep2-0.1.zip",
-  "license": "LICENSE.txt"
+  "download": "https://github.com/bobifle/ep2_foundry/raw/master/ep2-0.1.zip"
 }
